@@ -9,7 +9,7 @@
         android:id="@+id/productImage"
         style="18sp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -34,7 +34,7 @@
         tools:text="Broonie" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/productAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
