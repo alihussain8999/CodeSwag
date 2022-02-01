@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coderswag.R
 import com.example.coderswag.model.Category
 
-class CategoryRecycleAdapter(val context : Context, val categories : List<Category>) : RecyclerView.Adapter<CategoryRecycleAdapter.MyViewHolder>() {
+class CategoryRecycleAdapter(val context : Context, val categories : List<Category>, val itemClick : (Category) -> Unit) : RecyclerView.Adapter<CategoryRecycleAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
      val view = LayoutInflater.from(context).inflate(R.layout.category_list_item,parent,false)
-        return MyViewHolder(view)
+        return MyViewHolder(view,itemClick)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -26,7 +26,7 @@ class CategoryRecycleAdapter(val context : Context, val categories : List<Catego
     }
 
 
-    inner class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    inner class MyViewHolder(itemView : View, val itemClick: (Category) -> Unit) : RecyclerView.ViewHolder(itemView){
         var titleView : TextView? =itemView.findViewById(R.id.categoryName)
         var imageView : ImageView?=itemView.findViewById(R.id.categoryImage)
 
@@ -34,6 +34,8 @@ class CategoryRecycleAdapter(val context : Context, val categories : List<Catego
             titleView?.text = category.title
             val resourseId=context.resources.getIdentifier(category.image,"drawable",context.packageName)
             imageView?.setImageResource(resourseId)
+            itemView.setOnClickListener { itemClick(category) }
+
         }
     }
 
