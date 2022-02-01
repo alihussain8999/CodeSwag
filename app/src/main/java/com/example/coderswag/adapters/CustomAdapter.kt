@@ -25,15 +25,32 @@ class CustomAdapter(val context: Context, private val categories: List<Category>
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
        val categoryView : View
-       categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item,null)
+       val viewHolder : ViewHolder
 
-        val titleView = categoryView.findViewById<TextView>(R.id.categoryName)
-        val imageView = categoryView.findViewById<ImageView>(R.id.categoryImage)
+        if(convertView ==null){
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item,null)
+            viewHolder= ViewHolder()
+            viewHolder.titleView = categoryView.findViewById<TextView>(R.id.categoryName)
+            viewHolder.imageView = categoryView.findViewById<ImageView>(R.id.categoryImage)
+            println("I Exist For the first time")
+            categoryView.tag=viewHolder
 
-        titleView.text = categories[position].title
+        }else{
+            viewHolder=convertView.tag as ViewHolder
+            categoryView=convertView
+            println("Go green , Recycle !")
+        }
+
+        viewHolder.titleView?.text = categories[position].title
         val resourseId=context.resources.getIdentifier(categories[position].image,"drawable",context.packageName)
-        imageView.setImageResource(resourseId)
+        viewHolder.imageView?.setImageResource(resourseId)
 
         return categoryView
+    }
+
+
+    private class ViewHolder{
+        var titleView : TextView? =null
+        var imageView : ImageView?=null
     }
 }
